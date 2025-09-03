@@ -31,10 +31,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.Iterator ;
+
 
 public class lec1_ArrayList {
 
     public static void main(String[] args){
+        //  Integer | Float | String | Boolean 
 
         // Creating an ArrayList of Strings
         ArrayList<String> list = new ArrayList<>();
@@ -87,13 +91,111 @@ public class lec1_ArrayList {
         System.out.println("Is list empty now? " + list.isEmpty()); // true
 
 
-        // Thread-Safe Alternative
-        List<String> syncList = Collections.synchronizedList(new ArrayList<>());
-        // Or use:
-        CopyOnWriteArrayList<String>synclist2 = new CopyOnWriteArrayList<>();
 
-        System.out.println(syncList) ; 
-        System.out.println(synclist2) ; 
+
+
+        // *****************************************************
+        // Iterator over array 
+        // *****************************************************
+        
+        list.add("ankit") ; 
+        list.add("rahul") ; 
+        list.add("anjani") ; 
+        list.add("hritik") ; 
+        list.add("ujjawal") ; 
+        
+        // Sorting of the arraylist 
+        Collections.sort(list) ; 
+        System.out.println("printing the arraylist :"  + list)  ; 
+
+
+        // using for loop iterator 
+        System.out.print("ArrayList (for loop): ");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i) + " ");
+        }
+        
+
+        // using enhanced for loop ( for each) 
+        System.out.print("\nArrylist (for each) : ") ; 
+        for( String s : list){
+            System.out.print(s + " ")  ; 
+        }
+
+
+        // using iterator ; 
+        System.out.print("\nArraylist using Iterator : ") ;
+        Iterator<String>it = list.iterator() ; 
+        while(it.hasNext()){
+            System.out.print(it.next() + " ") ;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // *****************************************************
+        // Thread-Safe Alternative
+        // *****************************************************
+
+        // 1. Using Collection.synchronizedList() 
+        System.out.print("\nMethod to make existing arraylist to thread-safe") ; 
+        List<String> syncList = Collections.synchronizedList(list);
+
+        // Safe access
+        synchronized(syncList) {  // Important during iteration
+            for (String item : syncList) {
+                System.out.print(item + " ");
+            }
+        }
+        // Here, all add, remove, get calls are automatically synchronized.
+
+
+
+        // 2. create a copyonWriteArraylist from it 
+        // Iterators in CopyOnWriteArrayList are fail-safe (no ConcurrentModificationException).
+
+        // Downside: Every write (add/remove) makes a new copy of the entire array → costly if writes are frequent.
+        System.out.print("\nMake thread-safe using copyOnwriteArrayList: ") ;
+        CopyOnWriteArrayList<String>synclist2 = new CopyOnWriteArrayList<>(list);
+
+        // Iteration is safe without extra synchronization
+        for (String item : synclist2) {
+            System.out.print(item +  " ");
+        } 
+
+
+
+
+        // 3. use Explicit Locks (Alterative) 
+        // If you want finer-grained control, you can use a ReentrantLock.
+        // More flexible (can lock only when needed), but you must manage locks manually.
+
+        System.out.print("\nMaking thread-safe using explicit Locks") ; 
+        ReentrantLock lock = new ReentrantLock();
+
+        lock.lock();
+        try {
+            list.add("A");
+            list.add("B");
+
+            for(String s : list){
+                System.out.print(s + " ")  ; 
+            }
+        } finally {
+            lock.unlock();
+        }
+
+
+
+
+
+
+
 
     }
 }
