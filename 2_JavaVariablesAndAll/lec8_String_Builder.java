@@ -4,6 +4,13 @@
 // Strings in Java are immutable.
 // Every time you modify a String (like concatenation), a new object is created.
 
+
+
+// StringBuilder is mutable
+// It modifies the same object in memory without creating new ones.
+// It's optimized for appending, inserting, or deleting characters.
+
+
 public class lec8_String_Builder {
 
     public static void main(String arg[]){

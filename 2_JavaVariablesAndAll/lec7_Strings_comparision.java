@@ -12,11 +12,11 @@ public class lec7_Strings_comparision {
         // Correct Way: Use .compareTo() or .equals()
 
         if (name1.compareTo(name2) > 0) {
-            System.out.println(name1 + " is greater than " + name2);
+            System.out.println(name1 + " is greater than 1 " + name2);
         } else if (name1.compareTo(name2) < 0) {
-            System.out.println(name1 + " is less than " + name2);
+            System.out.println(name1 + " is less than 1" + name2);
         } else {
-            System.out.println("Both strings are equal.");
+            System.out.println("Both strings are 1 equal.");
         }
 
         // output : a is greater than A
@@ -24,6 +24,9 @@ public class lec7_Strings_comparision {
 
         if('a' > 'A'){
             System.out.println('a' + " is greater than " + 'A');
+        }
+        else{
+            System.out.println( "a is not greater than A") ;
         }
         // we can compare char directly
 
@@ -60,7 +63,12 @@ public class lec7_Strings_comparision {
         // == → compares references (memory location) but as both pointing to same memory so true is answer. 
 
 
-
+        if(new String("Tony") == new String("Tony")){
+            System.out.println("Strings are equal");
+        }
+        else{
+            System.out.println("Strings are not equals because with both are different object") ;
+        }
 
 
         // Visual example : 

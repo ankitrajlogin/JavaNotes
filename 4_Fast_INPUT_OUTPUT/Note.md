@@ -155,3 +155,15 @@ Let me know if you'd like:
 - 🔢 Matrix or grid reading templates  
 - ⚡ A reusable `FastReader` class template  
 
+
+
+
+## 🏁 Theoretical Comparison (I/O Approaches)
+
+| I/O Method                             | Input Speed  | Output Speed | Flush Control       | Suitability for CP             |
+| -------------------------------------- | ------------ | ------------ | ------------------- | ------------------------------ |
+| `Scanner` + `System.out`               | ❌ Slow       | ❌ Slow       | ❌ No                | ❌ Use only for small input     |
+| `BufferedReader` + `System.out`        | ✅ Fast       | ❌ Slow       | ❌ No                | ⚠️ Bottleneck on output        |
+| `BufferedReader` + `BufferedWriter`    | ✅ Fast       | ✅ Fast       | ✅ Yes               | ✅ Recommended                  |
+| `BufferedReader` + `PrintWriter`       | ✅ Fast       | ✅ Very fast  | ✅ Yes (`autoFlush`) | ✅ Recommended                  |
+| `Custom FastReader` + `BufferedWriter` | 🔥🔥 Fastest | 🔥 Fast      | ✅ Yes               | ✅✅ Best for extreme input size |
