@@ -1,4 +1,3 @@
-package BASIC;
 
 
 // A class that contains static methods to operate on or return collections (like Lists, Sets, etc.).
