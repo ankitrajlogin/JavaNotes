@@ -32,8 +32,7 @@
 // Class Already Exists. Why Interface Then?
 // Let’s say you already have a class Dog, Cat, Lion. But now you want to ensure all of them support the same behavior — say, makeSound(). You can’t make them extend each other, because Java doesn’t support multiple inheritance with classes.
 
-import java.lang.reflect.Method;
-import java.security.Key;
+
 
 interface Sound {
     void makeSound();
