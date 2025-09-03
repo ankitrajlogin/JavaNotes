@@ -90,6 +90,8 @@ public class lec1_stack_heap_memory{
 
         Person p  = new Person("Ankit" , 23) ; // object p in heap 
         // p is a reference stored in stack but the actual person object is in heap . 
+
+        System.out.println(sum + " " + p) ; 
     }
 }
 
