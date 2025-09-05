@@ -29,6 +29,37 @@
 
 
 
+
+
+
+/*
+
+Iterable
+  └── Collection
+        ├── List
+        │     ├── ArrayList
+        │     ├── LinkedList
+        │     └── Vector → Stack
+        │
+        ├── Set
+        │     ├── HashSet
+        │     ├── LinkedHashSet
+        │     └── SortedSet → NavigableSet → TreeSet
+        │
+        └── Queue
+              ├── PriorityQueue
+              └── Deque → ArrayDeque, LinkedList
+
+Map
+  ├── HashMap
+  ├── LinkedHashMap
+  ├── SortedMap → NavigableMap → TreeMap
+  └── Hashtable (legacy)
+
+
+ */
+
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 // import java.util.Collections;
@@ -48,8 +79,6 @@ import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
-
-
 
 
 

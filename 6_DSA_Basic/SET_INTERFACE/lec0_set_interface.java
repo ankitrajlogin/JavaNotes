@@ -36,7 +36,7 @@ import java.util.TreeSet;
         // 👉 Common Implementations:
         // HashSet
         // LinkedHashSet
-        // TreeSet
+        // TreeSet (SortedSet)
 
 public class lec0_set_interface {
         public static void main(String[] args) {
