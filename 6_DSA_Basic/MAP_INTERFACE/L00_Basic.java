@@ -81,7 +81,8 @@
     5. Example Usage:
 */
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class L00_Basic {
     public static void main(String[] args) {
