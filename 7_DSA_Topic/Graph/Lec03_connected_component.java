@@ -26,53 +26,53 @@
 
 import java.util.*;
 
-public class Lec02_connected_component {
+// Graph representation using adjacency list
+class Graph {
+    int V;
+    List<List<Integer>> adj;
 
-    // Graph representation using adjacency list
-    static class Graph {
-        int V;
-        List<List<Integer>> adj;
-
-        Graph(int V) {
-            this.V = V;
-            adj = new ArrayList<>();
-            for (int i = 0; i < V; i++) {
-                adj.add(new ArrayList<>());
-            }
-        }
-
-        void addEdge(int u, int v) {
-            adj.get(u).add(v);
-            adj.get(v).add(u); // undirected graph
-        }
-
-        // DFS utility to mark all reachable vertices from v
-        void dfs(int v, boolean[] visited, List<Integer> component) {
-            visited[v] = true;
-            component.add(v);
-            for (int neighbor : adj.get(v)) {
-                if (!visited[neighbor]) {
-                    dfs(neighbor, visited, component);
-                }
-            }
-        }
-
-        // Function to find all connected components
-        List<List<Integer>> getConnectedComponents() {
-            boolean[] visited = new boolean[V];
-            List<List<Integer>> components = new ArrayList<>();
-
-            for (int i = 0; i < V; i++) {
-                if (!visited[i]) {
-                    List<Integer> component = new ArrayList<>();
-                    dfs(i, visited, component);
-                    components.add(component);
-                }
-            }
-            return components;
+    Graph(int V) {
+        this.V = V;
+        adj = new ArrayList<>();
+        for (int i = 0; i < V; i++) {
+            adj.add(new ArrayList<>());
         }
     }
 
+    void addEdge(int u, int v) {
+        adj.get(u).add(v);
+        adj.get(v).add(u); // undirected graph
+    }
+
+    // DFS utility to mark all reachable vertices from v
+    void dfs(int v, boolean[] visited, List<Integer> component) {
+        visited[v] = true;
+        component.add(v);
+        for (int neighbor : adj.get(v)) {
+            if (!visited[neighbor]) {
+                dfs(neighbor, visited, component);
+            }
+        }
+    }
+
+    // Function to find all connected components
+    List<List<Integer>> getConnectedComponents() {
+        boolean[] visited = new boolean[V];
+        List<List<Integer>> components = new ArrayList<>();
+
+        for (int i = 0; i < V; i++) {
+            if (!visited[i]) {
+                List<Integer> component = new ArrayList<>();
+                dfs(i, visited, component);
+                components.add(component);
+            }
+        }
+        return components;
+    }
+}
+
+
+public class Lec03_connected_component {
     public static void main(String[] args) {
         /*
             Example:
