@@ -1,3 +1,21 @@
+
+
+/*
+🔹 Why it’s called "Dutch National Flag"?
+    The Dutch flag has 3 color bands: red, white, blue → similar to partitioning into 3 groups (0, 1, 2).
+    We want to reorder elements in a single scan (O(n)) with constant space (O(1)).
+
+🔹 Core Algorithm Recap
+    We maintain three regions in the array:
+    Left → all 0’s (0..zero-1).
+    Middle → all 1’s (zero..one-1).
+    Right → all 2’s (two+1..end).
+
+Then iterate with one:
+    If nums[one] == 0 → swap with zero, expand both zero & one.
+    If nums[one] == 1 → move one.
+ */
+
 import java.util.Arrays;
 
 public class Q01_0_1_2_sorting {
@@ -6,6 +24,7 @@ public class Q01_0_1_2_sorting {
         nums[i] = nums[j];
         nums[j] = temp;
     }
+
 
     public static void sortColors(int[] nums) {
         int zero = 0;          // boundary for 0
