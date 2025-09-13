@@ -7,36 +7,62 @@ import java.util.TreeSet;
 
 // The Set interface in Java is a part of the Java Collections Framework and is used to store a collection of unique elements, i.e., no duplicates allowed.
 
+/* 
 
-
-// **********************
-// public interface Set<E> extends Collection<E>
-
-// It extends the Collection interface, meaning it inherits common collection methods like add(), remove(), contains(), size(), etc., but adds its own constraint: all elements must be unique.
-
-// **********************
-
-
-
-// Key Features of Set 
-// | Feature                   | Description                                    |
-// | ------------------------- | ---------------------------------------------- |
-// | ✅ No Duplicates           | It does not allow duplicate elements.          |
-// | ❌ No Positional Access    | Unlike List, it doesn’t support indexing.      |
-// | ✅ Null Allowed            | One null element is allowed (depends on type). |
-// | 🚫 Unordered (in HashSet) | No guarantee of insertion order.               |
+2. Characteristics of Set
+        1. No Duplicates → Each element must be unique.
+        2. At Most One Null → Most Set implementations allow only one null element (HashSet, LinkedHashSet). TreeSet does not allow null.
+        3. Unordered or Ordered → Depends on implementation:
+                - HashSet: unordered.
+                - LinkedHashSet: insertion order preserved.
+                - TreeSet: sorted in natural/comparator-defined order.
 
 
 
+**********************
+public interface Set<E> extends Collection<E>
+
+It extends the Collection interface, meaning it inherits common collection methods like add(), remove(), contains(), size(), etc., but adds its own constraint: all elements must be unique.
+
+**********************
 
 
 
-// 2. Set Interface
-        // 🔹 Unordered, no duplicates
-        // 👉 Common Implementations:
-        // HashSet
-        // LinkedHashSet
-        // TreeSet (SortedSet)
+Key Features of Set 
+| Feature                   | Description                                    |
+| ------------------------- | ---------------------------------------------- |
+| ✅ No Duplicates           | It does not allow duplicate elements.          |
+| ❌ No Positional Access    | Unlike List, it doesn’t support indexing.      |
+| ✅ Null Allowed            | One null element is allowed (depends on type). |
+| 🚫 Unordered (in HashSet) | No guarantee of insertion order.               |
+
+
+
+
+
+
+2. Set Interface
+        🔹 Unordered, no duplicates
+        👉 Common Implementations:
+        HashSet
+        LinkedHashSet
+        TreeSet (SortedSet)
+
+
+
+
+3. Collecion Hierarchy of Set Interface  
+
+           Collection
+               |
+               Set
+      /----------------\
+ HashSet   LinkedHashSet   SortedSet
+                          /        \
+                      NavigableSet  TreeSet
+
+
+*/
 
 public class lec0_set_interface {
         public static void main(String[] args) {
