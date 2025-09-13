@@ -21,7 +21,7 @@ class CustomLinkedHashMap<K, V> {
     private Node<K, V>[] table;  // hash table
     private Node<K, V> head, tail; // for insertion order
 
-    @SuppressWarnings("unchecked")
+    // @SuppressWarnings("unchecked")
     public CustomLinkedHashMap() {
         table = new Node[SIZE];
     }

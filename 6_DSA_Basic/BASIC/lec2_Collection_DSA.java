@@ -82,6 +82,43 @@ import java.util.Vector;
 
 
 
+/* 
+-------------------------------------------------------------------
+Key Interfaces in Data Structures (Java Collections Framework)
+-------------------------------------------------------------------
+
+    (i) Collection Interface
+        - Root interface of most data structures.
+        - Defines common methods:
+            - add(E e), remove(Object o), size(), isEmpty(), iterator().
+
+    (ii) List Interface
+        - Ordered collection, allows duplicates.
+        - Methods:
+            - get(int index), set(int index, E element), add(int index, E element), remove(int index).
+        - Implementations: ArrayList, LinkedList, Vector.
+
+    (iii) Set Interface
+        - Unordered collection, no duplicates allowed.
+        - Implementations: HashSet, LinkedHashSet, TreeSet.
+
+    (iv) Queue Interface
+        - FIFO (First In First Out) order, though PriorityQueue changes order based on priority.
+        - Methods:
+            - offer(E e), poll(), peek().
+        - Implementations: PriorityQueue, ArrayDeque.
+
+    (v) Deque Interface (Double-Ended Queue)
+        - Can insert/remove from both ends.
+        - Methods: addFirst(E e), addLast(E e), pollFirst(), pollLast().
+
+    (vi) Map Interface
+        - Key-value pairs, keys must be unique.
+        - Methods: put(K key, V value), get(Object key), remove(Object key), keySet().
+        - Implementations: HashMap, LinkedHashMap, TreeMap, Hashtable.
+*/
+
+
 
 
 

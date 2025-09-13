@@ -78,7 +78,7 @@
             * Uses bucket-level locking instead of locking the whole map.
             * Faster than Hashtable.
 
-    5. Example Usage:
+    
 */
 
 import java.util.HashMap;
