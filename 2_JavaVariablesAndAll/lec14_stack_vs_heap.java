@@ -55,6 +55,8 @@ class MemoryExample {
         int a = 5;                        // primitive -> stack
         Person p1 = new Person("Ankit");  // object -> heap
         Person p2 = p1;                   // reference copy -> stack
+
+        System.out.println(a  + " " + p1 + " " + p2) ; 
     }
 }
 

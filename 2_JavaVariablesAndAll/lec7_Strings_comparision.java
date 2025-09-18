@@ -25,18 +25,18 @@ public class lec7_Strings_comparision {
         if('a' > 'A'){
             System.out.println('a' + " is greater than " + 'A');
         }
-        else{
-            System.out.println( "a is not greater than A") ;
-        }
+        // else{
+        //     System.out.println( "a is not greater than A") ;
+        // }
         // we can compare char directly
 
 
         if("ankitraj" == "ankitraj"){
             System.out.println("strings are equal") ;
         }
-        else{
-            System.out.println("string is not equal") ; 
-        }
+        // else{
+        //     System.out.println("string is not equal") ; 
+        // }
 
         // String interning means that identical string literals are stored only once in the string pool in memory.
         // So:
