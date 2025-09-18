@@ -78,6 +78,9 @@ class MemoryExample {
 
 
 public class lec14_stack_vs_heap {
+    public static void main(String[] args) {
+        
+    }
     
 }
 

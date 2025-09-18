@@ -23,8 +23,7 @@ class BinarySearch{
 
 
     public static int IterativeBinarySearch(int arr[] , int low , int high , int target){
-        int n = arr.length ; 
-
+    
         while(low <= high){
             int mid = (low + high)/2 ; 
 
