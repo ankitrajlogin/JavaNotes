@@ -57,17 +57,137 @@
     - Deletion → O(log n)
     - (because height of AVL tree is always log n)
 
-- **Major operations:**
-    - Creation of AVL trees
-    - Search for a node in AVL trees
-    - Traverse all nodes in AVL trees
-    - Insert a node in AVL Trees
-    - Delete a node from AVL trees
-    - Delete the entire AVL trees
+---
+
+## ⏱️ Time Complexity of AVL Tree Functions
+
+| Operation                | Time Complexity |
+|--------------------------|----------------|
+| Create AVL Tree          | O(n log n)     |
+| Search for a node        | O(log n)       |
+| Traverse all nodes       | O(n)           |
+| Insert a node            | O(log n)       |
+| Delete a node            | O(log n)       |
+| Delete entire AVL tree   | O(n)           |
+
+- **Create AVL Tree:** O(n log n) if inserting n nodes one by one.
+- **Search:** O(log n) due to balanced height.
+- **Traverse:** O(n) for inorder/preorder/postorder traversal.
+- **Insert/Delete:** O(log n) (includes possible rotations).
+- **Delete entire tree:** O(n) (visit every node).
 
 ---
 
+## 📊 Detailed Time Complexity Analysis of AVL Tree Operations
 
+1. **Height of AVL Tree**
+    - For n nodes, height h = O(log n)
+    - Worst-case height: h ≤ 1.44 * log₂(n + 2) - 0.328
+    - Rotations keep the tree balanced.
+
+2. **Search**
+    - Works like BST: go left/right based on comparison.
+    - Best case: O(1) (found at root)
+    - Average/Worst case: O(log n) (height of tree)
+    - Reason: AVL tree height is O(log n), so max comparisons = O(log n)
+
+3. **Insertion**
+    - Insert like BST: O(log n)
+    - Update heights: O(1) per node, total O(log n)
+    - Rebalance (rotations): Single/Double rotation = O(1)
+    - **Total Time Complexity:** O(log n)
+    - Rotations are constant-time and only performed along the path to root.
+
+4. **Deletion**
+    - Delete like BST: O(log n)
+    - Update heights: O(log n)
+    - Rebalance (rotations): O(log n) worst case (may need multiple rotations up the tree)
+    - **Total Time Complexity:** O(log n)
+    - Deletion may require multiple rotations up to root.
+
+5. **Find Minimum / Maximum**
+    - Go all the way to left (min) or right (max)
+    - **Time Complexity:** O(log n)
+
+6. **Traversals (Inorder, Preorder, Postorder)**
+    - Visits every node once
+    - **Time Complexity:** O(n)
+    - **Space Complexity:** O(h) = O(log n) for recursion stack
+
+7. **Rotations (LL, RR, LR, RL)**
+    - Each rotation: O(1)
+    - Only affects a few nodes locally.
+
+8. **Delete Entire Tree**
+    - Post-order traversal to delete nodes
+    - **Time Complexity:** O(n)
+    - **Space Complexity:** O(h) = O(log n)
+
+9. **Summary Table**
+
+| Operation      | Time Complexity | Reason                                      |
+|----------------|----------------|---------------------------------------------|
+| Search         | O(log n)       | Height of AVL tree ≤ log n                  |
+| Insert         | O(log n)       | Path + rotation along path ≤ log n          |
+| Delete         | O(log n)       | Path + possible rotations ≤ log n           |
+| Find Min/Max   | O(log n)       | Go left/right to leaf                       |
+| Traversals     | O(n)           | Visit every node                            |
+| Rotations      | O(1)           | Constant time adjustments                   |
+| Delete Entire  | O(n)           | Visit each node once                        |
+
+---
+
+## 🧮 Space Complexity Analysis
+
+- **Search / Insertion / Deletion**
+    - Iterative: O(1) extra space.
+    - Recursive: O(h) = O(log n) stack space (h = tree height).
+- **Find Min / Max**
+    - Iterative: O(1)
+    - Recursive: O(h)
+- **Rotations**
+    - O(1) (only pointer changes)
+- **Traversals (Inorder, Preorder, Postorder)**
+    - O(h) = O(log n) for recursion stack.
+- **Delete Entire Tree**
+    - O(h) = O(log n) for recursion stack (post-order traversal).
+
+---
+
+## 📋 Why These Complexities Hold
+
+- **Search / Insertion / Deletion:**  
+  AVL tree height is always O(log n), so traversing from root to leaf takes O(log n) steps.  
+  Rotations are constant time, only a few nodes change pointers.
+
+- **Traversal:**  
+  Every node is visited once, so O(n) time.  
+  Recursive stack goes up to height h = O(log n).
+
+- **Space Complexity:**  
+  Iterative methods: O(1) extra space.  
+  Recursive methods: O(h) = O(log n) stack space.
+
+- **Delete Entire Tree:**  
+  Uses post-order traversal.  
+  Visits all nodes → O(n) time.  
+  Recursive stack height → O(h) = O(log n).
+
+---
+
+## 📝 Summary Table for AVL Tree Operations
+
+| Operation                | Time Complexity | Space Complexity      |
+|--------------------------|----------------|----------------------|
+| Search                   | O(log n)       | O(1) / O(log n)      |
+| Insert                   | O(log n)       | O(1) / O(log n)      |
+| Delete                   | O(log n)       | O(1) / O(log n)      |
+| Min / Max                | O(log n)       | O(1) / O(log n)      |
+| Rotations                | O(1)           | O(1)                 |
+| Traversals (In/Pre/Post) | O(n)           | O(log n)             |
+| Delete Entire Tree       | O(n)           | O(log n)             |
+
+---
 
 # 🌳 AVL Tree Imbalances & Rotations
 
