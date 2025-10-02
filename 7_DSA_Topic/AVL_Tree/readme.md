@@ -1,3 +1,15 @@
+# AVL Tree
+
+**Diagram of a Balanced AVL Tree:**
+```
+      30
+     /  \
+   20    40
+  /  \     \
+10  25     50
+```
+- Each node's left and right subtree heights differ by at most 1.
+
 ## What is an AVL Tree?
 
 - An AVL Tree is a self-balancing binary search tree where the difference between the heights of the left and right subtrees of any node (known as the balance factor) is at most 1. This ensures that the tree remains approximately balanced, which guarantees O(log n) time complexity for search, insertion, and deletion operations.
@@ -203,6 +215,15 @@ Depending on where the new node is inserted, one of the 4 imbalance cases occurs
 ---
 
 ## 1. Left-Left (LL) Case
+
+**AVL Tree Example Diagram:**
+```
+    30
+   /  \
+  20   40
+ /  \
+10  25
+```
 
 **When?**
 - BF > 1 (left heavy)
@@ -450,6 +471,22 @@ Insertion makes left subtree too heavy.
 ```
 
 ✅ Tree balanced.
+
+---
+
+## Example AVL Tree Diagram
+
+A typical balanced AVL tree looks like:
+
+```
+      30
+     /  \
+   20    40
+  /  \     \
+10  25     50
+```
+
+- The difference in height between left and right subtree of every node is at most 1.
 
 ---
 
