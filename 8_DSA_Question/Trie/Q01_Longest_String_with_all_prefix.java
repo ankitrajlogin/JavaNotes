@@ -8,32 +8,32 @@ PROBLEM STATEMENT :
 
 
 
-class TrieNode{
-    TrieNode[] children ; 
+class _TrieNode{
+    _TrieNode[] children ; 
     boolean isWordEnd ; 
 
-    TrieNode(){
-        children = new TrieNode[26] ;
+    _TrieNode(){
+        children = new _TrieNode[26] ;
         this.isWordEnd = false ; 
     }
 }
 
 class Trie{
-    private TrieNode root ; 
+    private _TrieNode root ; 
 
     Trie(){
-        root = new TrieNode() ; 
+        root = new _TrieNode() ; 
     }
 
 
     public void insert(String word){
-        TrieNode node = root ; 
+        _TrieNode node = root ; 
 
         for(char c : word.toCharArray()){
             int index = c - 'a' ; 
 
             if(node.children[index] == null){
-                node.children[index] = new TrieNode() ; 
+                node.children[index] = new _TrieNode() ; 
             }
 
             node = node.children[index] ; 
@@ -43,7 +43,7 @@ class Trie{
     }
 
     public boolean isComplete(String word){
-        TrieNode node = root ; 
+        _TrieNode node = root ; 
 
         for(char c : word.toCharArray()){
             int index = c-'a' ; 

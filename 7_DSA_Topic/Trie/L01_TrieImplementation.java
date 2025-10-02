@@ -33,30 +33,30 @@
         4. Check if a prefix exists.
         5. List all words in the trie.
 */
-class TrieNode {
-    TrieNode[] children; // array of size 26
+class TrieNode_ {
+    TrieNode_[] children; // array of size 26
     boolean isEndOfWord;
 
-    public TrieNode() {
-        children = new TrieNode[26];
+    public TrieNode_() {
+        children = new TrieNode_[26];
         isEndOfWord = false;
     }
 }
 
 class Trie {
-    private TrieNode root;
+    private TrieNode_ root;
 
     public Trie() {
-        root = new TrieNode();
+        root = new TrieNode_();
     }
 
     // Insert a word into the Trie
     public void insert(String word) {
-        TrieNode current = root;
+        TrieNode_ current = root;
         for (char ch : word.toCharArray()) {
             int index = ch - 'a';
             if (current.children[index] == null) {
-                current.children[index] = new TrieNode();
+                current.children[index] = new TrieNode_();
             }
             current = current.children[index];
         }
@@ -65,7 +65,7 @@ class Trie {
 
     // Search if a word exists in Trie
     public boolean search(String word) {
-        TrieNode node = getNode(word);
+        TrieNode_ node = getNode(word);
         return node != null && node.isEndOfWord;
     }
 
@@ -75,8 +75,8 @@ class Trie {
     }
 
     // Helper: traverse Trie for a word/prefix
-    private TrieNode getNode(String str) {
-        TrieNode current = root;
+    private TrieNode_ getNode(String str) {
+        TrieNode_ current = root;
         for (char ch : str.toCharArray()) {
             int index = ch - 'a';
             if (current.children[index] == null) return null;
@@ -90,7 +90,7 @@ class Trie {
         return deleteHelper(root, word, 0);
     }
 
-    private boolean deleteHelper(TrieNode current, String word, int index) {
+    private boolean deleteHelper(TrieNode_ current, String word, int index) {
         if (index == word.length()) {
             if (!current.isEndOfWord) return false; // word not found
             current.isEndOfWord = false;
@@ -98,7 +98,7 @@ class Trie {
         }
 
         int i = word.charAt(index) - 'a';
-        TrieNode node = current.children[i];
+        TrieNode_ node = current.children[i];
         if (node == null) return false;
 
         boolean shouldDeleteCurrentNode = deleteHelper(node, word, index + 1);
@@ -110,8 +110,8 @@ class Trie {
         return false;
     }
 
-    private boolean isEmpty(TrieNode node) {
-        for (TrieNode child : node.children) {
+    private boolean isEmpty(TrieNode_ node) {
+        for (TrieNode_ child : node.children) {
             if (child != null) return false;
         }
         return true;
@@ -122,7 +122,7 @@ class Trie {
         collectWords(root, new StringBuilder());
     }
 
-    private void collectWords(TrieNode node, StringBuilder prefix) {
+    private void collectWords(TrieNode_ node, StringBuilder prefix) {
         if (node.isEndOfWord) {
             System.out.println(prefix.toString());
         }
@@ -137,14 +137,14 @@ class Trie {
 
     // count how many words share the given prefix 
     public int countWordWithPrefix(String prefix){
-        TrieNode node = getNode(prefix) ; 
+        TrieNode_ node = getNode(prefix) ; 
 
         if(node == null) return 0 ; 
 
         return countWords(node) ; 
     }
 
-    private int countWords(TrieNode node){
+    private int countWords(TrieNode_ node){
         int count = 0 ; 
 
         if(node.isEndOfWord) count++ ; 

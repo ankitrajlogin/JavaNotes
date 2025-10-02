@@ -7,7 +7,7 @@ BFS & DFS in Java (using ArrayList<Integer>[] adjacency list)
 
 import java.util.*;
 
-class BFS {
+class BFS_ {
     static void traverse(ArrayList<Integer>[] adj, int V, int start) {
         boolean[] visited = new boolean[V];
         Queue<Integer> queue = new LinkedList<>();
@@ -87,7 +87,7 @@ public class Lec07_BFS_DFS_Interview {
         printGraph(adj, V);
 
         // Run traversals
-        BFS.traverse(adj, V, 0);
+        BFS_.traverse(adj, V, 0);
         DFS.traverse(adj, V, 0);
     }
 
