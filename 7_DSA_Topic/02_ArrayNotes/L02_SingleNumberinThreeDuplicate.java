@@ -1,9 +1,7 @@
-
-
 class Solution{
     // Time: O(32 * n) → O(n)
 
-    public static int SingleNumber(int[] nums){
+    public static int singleNumber(int[] nums){
         int result = 0 ; 
 
         // Go through all 32 bits of an integer 
@@ -31,6 +29,7 @@ public class L02_SingleNumberinThreeDuplicate {
     public static void main(String[] args) {
         int[] nums = {9 , 2 , 2 ,2 , 3 , 4, 4, 4, 3 , 3} ;
 
-        System.out.println(Solution.SingleNumber(nums));
+        System.out.println(Solution.singleNumber(nums));
     }
 }
+

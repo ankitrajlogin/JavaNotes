@@ -53,7 +53,7 @@ What is an AVL Tree ?
 
 /*
 -----------------------
-Operations
+Operations 
 -----------------------
 
     Insertion
@@ -75,6 +75,17 @@ Operations
         - Insertion → O(log n)
         - Deletion → O(log n)
         (because height of AVL tree is always log n)
+
+
+
+    Hence , Major opteration on it. 
+        - Creation of AVL trees. 
+        - Search for a node in AVL trees 
+        - Traverse all nodes in AVL trees 
+        - Insert a node in AVL Trees 
+        - Delete a node from AVL trees 
+        - Delete the entire AVL trees 
+        
  */
 
 
