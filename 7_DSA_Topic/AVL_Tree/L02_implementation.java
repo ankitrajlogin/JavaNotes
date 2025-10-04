@@ -1,4 +1,20 @@
 
+/* 
+// Complexity Table for AVL Tree 
+
+| Operation                | Time Complexity | Space Complexity |
+| ------------------------ | --------------- | ---------------- |
+| Search                   | O(log n)        | O(1) / O(log n)  |
+| Insert                   | O(log n)        | O(1) / O(log n)  |
+| Delete                   | O(log n)        | O(1) / O(log n)  |
+| Min / Max                | O(log n)        | O(1) / O(log n)  |
+| Rotations                | O(1)            | O(1)             |
+| Traversals (In/Pre/Post) | O(n)            | O(log n)         |
+| Delete Entire Tree       | O(n)            | O(log n)         |
+
+
+*/
+
 
 // Node class for AVL Tree
 class Node {
@@ -160,6 +176,9 @@ class AVLTree {
         // Return unchanged node pointer
         return node;
     }
+
+
+    
 
 
     // Find node with minimum key in a subtree 
