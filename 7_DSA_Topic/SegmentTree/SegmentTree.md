@@ -747,3 +747,200 @@ Call: `query(0, 0, 5, 1, 4)` (root node)
 - tree[6] = sum [5-5] = 3
 
 ---
+
+## 19. Lazy Propagation in Segment Trees
+
+### 1️⃣ Motivation
+
+A normal segment tree allows:
+- Point Update (update one element) → O(log n)
+- Range Query (sum/min/max over a range) → O(log n)
+
+✅ But if we want Range Updates (update all elements in [l, r]), the naive approach requires updating each element → O(n log n) in worst case.
+
+**Example:** Add +5 to all elements from arr[2..7].  
+If we update one-by-one, it’s slow.
+
+**Solution:** Lazy Propagation → allows efficient Range Updates + Range Queries in O(log n).
+
+---
+
+### 2️⃣ Key Idea
+
+Instead of updating all affected nodes immediately,  
+we store pending updates in a lazy array and only apply them when necessary (when visiting that node in a future query/update).
+
+- `tree[]` → stores segment tree values (sum/min/max).
+- `lazy[]` → stores pending updates for nodes that haven’t been pushed to children yet.
+
+---
+
+### 3️⃣ Example
+
+Array:  
+`arr = [1, 2, 3, 4, 5]`
+
+Suppose we want: Add +2 to range [1,3]
+
+- **Without Lazy:**  
+  Update arr[1] += 2, arr[2] += 2, arr[3] += 2  
+  Update segment tree → costly.
+
+- **With Lazy:**  
+  Mark node covering [1,3] with +2 in lazy[]  
+  Only when we query inside [1,3], we apply the update.
+
+---
+
+### 4️⃣ Lazy Propagation Steps
+
+**Range Update (add value to [l, r])**
+
+1. If current node range is completely outside [l,r] → return.
+2. If current node has pending lazy value, apply it first (push down).
+3. If current node range is completely inside [l,r]:
+    - Update tree[node] with val * segment_length
+    - Store update in lazy[] for its children
+    - Return (don’t go deeper).
+4. If partial overlap, propagate to children, then update current node.
+
+**Range Query (sum/min/max over [l, r])**
+
+1. If current node has pending lazy value, apply it first.
+2. If no overlap, return 0 (or ∞ for min).
+3. If total overlap, return tree[node].
+4. If partial overlap, query left and right children and combine.
+
+---
+
+### 5️⃣ Pseudocode
+
+**Update Function**
+```java
+void updateRange(int node, int start, int end, int l, int r, int val) {
+    // Step 1: Resolve lazy value if pending
+    if (lazy[node] != 0) {
+        tree[node] += (end - start + 1) * lazy[node]; // apply pending update
+        if (start != end) { // not a leaf
+            lazy[2*node+1] += lazy[node];
+            lazy[2*node+2] += lazy[node];
+        }
+        lazy[node] = 0; // clear lazy value
+    }
+
+    // Step 2: Out of range
+    if (start > r || end < l) return;
+
+    // Step 3: Complete overlap
+    if (start >= l && end <= r) {
+        tree[node] += (end - start + 1) * val;
+        if (start != end) {
+            lazy[2*node+1] += val;
+            lazy[2*node+2] += val;
+        }
+        return;
+    }
+
+    // Step 4: Partial overlap → go deeper
+    int mid = (start + end) / 2;
+    updateRange(2*node+1, start, mid, l, r, val);
+    updateRange(2*node+2, mid+1, end, l, r, val);
+
+    // Update current node
+    tree[node] = tree[2*node+1] + tree[2*node+2];
+}
+```
+
+**Query Function**
+```java
+int queryRange(int node, int start, int end, int l, int r) {
+    // Step 1: Resolve lazy value if pending
+    if (lazy[node] != 0) {
+        tree[node] += (end - start + 1) * lazy[node];
+        if (start != end) {
+            lazy[2*node+1] += lazy[node];
+            lazy[2*node+2] += lazy[node];
+        }
+        lazy[node] = 0;
+    }
+
+    // Step 2: Out of range
+    if (start > r || end < l) return 0;
+
+    // Step 3: Complete overlap
+    if (start >= l && end <= r) return tree[node];
+
+    // Step 4: Partial overlap → query children
+    int mid = (start + end) / 2;
+    int leftSum = queryRange(2*node+1, start, mid, l, r);
+    int rightSum = queryRange(2*node+2, mid+1, end, l, r);
+
+    return leftSum + rightSum;
+}
+```
+
+---
+
+### 6️⃣ Example Walkthrough
+
+Array:  
+`arr = [1, 2, 3, 4, 5]`
+
+Initial tree (sum):  
+`tree[0] = 15`
+
+**Operation:** Add +2 to range [1,3]
+
+- Update [1,3]:
+    - Root [0,4] → partially overlaps → push down to children.
+    - Node [1,3] fully inside → tree[node] += 2*(3 elements) = +6
+    - Mark children with lazy +2.
+- Now tree stores correct sum without directly changing arr.
+
+**Query [2,4]:**
+- When reaching node [2,3], apply lazy → add pending values.
+- Return correct result.
+
+---
+
+### 7️⃣ Time Complexity
+
+| Operation         | Normal Segment Tree | With Lazy Propagation |
+|-------------------|--------------------|----------------------|
+| Point Update      | O(log n)           | O(log n)             |
+| Range Update      | O(n log n)         | O(log n)             |
+| Range Query       | O(log n)           | O(log n)             |
+
+---
+
+### 8️⃣ Use Cases
+
+- Range Add + Range Sum Queries
+- Range Increment / Decrement
+- Range Min/Max with Range Updates
+- Problems in competitive programming (large arrays, frequent updates)
+
+---
+
+### 9️⃣ Diagram (for Sum Segment Tree with Lazy Update)
+
+```
+            [0-4] sum=15
+           /             \
+     [0-2] sum=6        [3-4] sum=9
+     /      \            /     \
+ [0-1]=3   [2]=3   [3]=4     [4]=5
+
+Lazy update: +2 to [1-3]
+→ Instead of updating arr[1],arr[2],arr[3],
+  mark node [1-3] with lazy +2.
+```
+
+---
+
+### ✅ Key Takeaway
+
+Lazy Propagation allows fast range updates by delaying propagation of updates until necessary.  
+It’s one of the most important optimizations for segment trees.
+
+---
