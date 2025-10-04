@@ -598,3 +598,152 @@ Array: `[2, 5, 1, 4, 9, 3]`
 - After building, `tree[0]` (root) contains the sum of the whole array.
 
 ---
+
+## 15. Update Operation (Step-by-Step Explanation)
+
+**Goal:** Update a single element in the array, e.g., `arr[2] = 10`.
+
+We need to update the corresponding leaf node and propagate the change up the tree to keep sums correct.
+
+**Update Function (0-based index):**
+```java
+void update(int node, int start, int end, int idx, int val) {
+    if (start == end) {
+        arr[idx] = val;
+        tree[node] = val;
+    } else {
+        int mid = (start + end) / 2;
+        if (idx <= mid) update(2 * node + 1, start, mid, idx, val);
+        else update(2 * node + 2, mid + 1, end, idx, val);
+        tree[node] = tree[2 * node + 1] + tree[2 * node + 2];
+    }
+}
+```
+
+### Step-by-Step Example
+
+Suppose `arr = [2, 5, 1, 4, 9, 3]` and we want to update `arr[2] = 10`.
+
+Call: `update(0, 0, 5, 2, 10)` (root node)
+
+**Step 1:** Root node (0, 0-5)
+- mid = 2
+- idx = 2 <= mid → go left child
+- Call `update(1, 0, 2, 2, 10)`
+
+**Step 2:** Node 1 (0-2)
+- mid = 1
+- idx = 2 > mid → go right child
+- Call `update(4, 2, 2, 2, 10)`
+
+**Step 3:** Node 4 (2-2)
+- Leaf node → set `tree[4] = 10`, `arr[2] = 10`
+
+**Step 4:** Backtrack and update parents
+- Node 1 → `tree[1] = tree[3] + tree[4] = 7 + 10 = 17`
+- Node 0 → `tree[0] = tree[1] + tree[2] = 17 + 16 = 33`
+
+**Resulting tree:**
+```
+       [0-5] 33
+      /        \
+ [0-2] 17    [3-5] 16
+ /   \        /    \
+7   10   [3-4]13   3
+```
+- arr = [2, 5, 10, 4, 9, 3]
+
+---
+
+## 16. Query Operation (Step-by-Step Explanation)
+
+**Goal:** Compute sum of elements in a given range `[l, r]`.
+
+**Query Function (0-based index):**
+```java
+int query(int node, int start, int end, int l, int r) {
+    if (r < start || l > end) return 0; // no overlap
+    if (l <= start && end <= r) return tree[node]; // total overlap
+    int mid = (start + end) / 2;
+    int leftSum = query(2 * node + 1, start, mid, l, r);
+    int rightSum = query(2 * node + 2, mid + 1, end, l, r);
+    return leftSum + rightSum;
+}
+```
+
+### Step-by-Step Example
+
+Suppose we want to query sum in range `[1, 4]` after the above update.
+
+Call: `query(0, 0, 5, 1, 4)` (root node)
+
+**Step 1:** Root node (0-5)
+- mid = 2
+- Partial overlap: [1,4] covers both left [0,2] and right [3,5]
+- Call left: `query(1, 0, 2, 1, 4)`
+- Call right: `query(2, 3, 5, 1, 4)`
+
+**Step 2:** Node 1 (0-2)
+- mid = 1
+- Partial overlap: [1,4] covers both left [0,1] and right [2,2]
+- Call left: `query(3, 0, 1, 1, 4)`
+- Call right: `query(4, 2, 2, 1, 4)`
+
+**Step 3:** Node 3 (0-1)
+- [1,4] overlaps with [0,1]
+- Call left: `query(7, 0, 0, 1, 4)` → no overlap → return 0
+- Call right: `query(8, 1, 1, 1, 4)` → total overlap → return tree[8] = 5
+- Node 3 sum = 0 + 5 = 5
+
+**Step 4:** Node 4 (2-2)
+- [1,4] total overlap → return tree[4] = 10
+
+- Node 1 sum = 5 + 10 = 15
+
+**Step 5:** Node 2 (3-5)
+- mid = 4
+- [1,4] overlaps with left [3,4], right [5,5]
+- Call left: `query(5, 3, 4, 1, 4)`
+- Call right: `query(6, 5, 5, 1, 4)` → no overlap → return 0
+
+**Step 6:** Node 5 (3-4)
+- [1,4] total overlap → return tree[5] = 13
+
+- Node 2 sum = 13 + 0 = 13
+
+**Step 7:** Combine at root
+- Total sum = left (15) + right (13) = 28
+
+**Result:** sum in range [1,4] = 5 + 10 + 4 + 9 = 28
+
+---
+
+## 17. Key Concepts
+
+| Concept         | Explanation |
+|-----------------|-------------|
+| Leaf node update| Update the element in arr and tree |
+| Propagation     | Update parent nodes as tree[node] = tree[left] + tree[right] |
+| Query types     | No overlap → return 0 (sum)<br>Total overlap → return tree[node]<br>Partial overlap → query left & right children, combine |
+
+---
+
+## 18. Visualization After Update
+
+```
+       [0-5] 33
+      /        \
+ [0-2] 17    [3-5] 16
+ /   \        /    \
+7   10   [3-4]13   3
+```
+- arr = [2, 5, 10, 4, 9, 3]
+- tree[0] = sum [0-5] = 33
+- tree[1] = sum [0-2] = 17
+- tree[2] = sum [3-5] = 16
+- tree[3] = sum [0-1] = 7
+- tree[4] = sum [2-2] = 10
+- tree[5] = sum [3-4] = 13
+- tree[6] = sum [5-5] = 3
+
+---
