@@ -250,7 +250,60 @@ class LeftMostMaxBuildingLazy{
 
 // Main Class to Test
 public class L04_RightMaxQuery {
-   public static void main(String[] args) {
+
+    // you can add additional parameter in this such that return alice bob leetcode propblem solution 
+   public static int LeftMostMaxBuildingRightofAandB(int[] heights,  int aliceIndex, int bobIndex) {
+
+        int n = heights.length ; 
+        LeftMostMaxBuildingLazy tree = new LeftMostMaxBuildingLazy();
+        tree.constructST(heights);
+
+
+
+        int smallIndex = Math.min(aliceIndex, bobIndex);
+        int largeIndex = Math.max(aliceIndex, bobIndex);
+
+        if(largeIndex >= n){
+            return -1;
+        }
+
+        int maxHeightBuilding = Math.max(heights[smallIndex], heights[largeIndex]);
+
+        if(smallIndex == largeIndex || heights[largeIndex] > heights[smallIndex]){
+            return largeIndex;
+        }
+
+        int start = largeIndex + 1;
+        int end = n - 1;
+        int result = -1;
+
+        while (start <= end) {
+            int idx = tree.queryMaxIndex(start, end); // max index in current range
+            if (heights[idx] <= maxHeightBuilding) {
+                break; // no valid building in this segment
+            }
+
+            // Narrow down to find leftmost
+            if (start == end) { 
+                result = idx; // leftmost taller building found
+                break;
+            }
+
+            int mid = (start + end) / 2;
+            int leftMaxIdx = tree.queryMaxIndex(start, mid);
+
+            if (heights[leftMaxIdx] > maxHeightBuilding) {
+                end = mid; // left half contains a taller building
+            } else {
+                start = mid + 1; // move to right half
+            }
+        }
+
+        return result;
+    }
+
+
+    public static void main(String[] args) {
         int[] heights = {2, 1, 5, 3, 5, 2, 4};
 
         LeftMostMaxBuildingLazy tree = new LeftMostMaxBuildingLazy();
